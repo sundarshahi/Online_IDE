@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset ="utf-8">
+  <title>Submission</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href={{url_for("static",filename="css/bootstrap.min.css")}} rel="stylesheet">
+  <link href="{{url_for('static',filename='css/bootstrap-responsive.css')}}" rel="stylesheet">
+  <link href={{url_for("static",filename="img6.jpg")}} rel="shortcut icon">
+</head>
+<body style="background: #F5F5F5;">
+  <header>
+    <nav>
+      <div class="navbar navbar-inverse navbar-static-top">
+        <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">
+            <img src="{{url_for('static',filename='img6.jpg')}}"> Online IDE</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav pull-right">
+                <li class="divider-vertical"></li>
+                <li><a href="/users/{{username}}/">Dashboard</a></li>
+                <li class="divider-vertical"></li>
+                <li class="active"><a href="/users/{{username}}/onlineide">New Code</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="/logout">LOGOUT</a></li>
+                <li class="divider-vertical"></li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  {% with messages = get_flashed_messages() %}
+   {% if messages %}
+      <ul>
+         {% for message in messages %}
+          <div class="alert" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <strong>{{message}}</strong>
+          </div>
+         {% endfor %}
+      </ul>
+   {% endif %}
+  {% endwith %}
+  <form action="/users/{{username}}/{{title}}/" method="POST" enctype="multipart/form-data" autocomplete="off" style="margin-left: 20px">
+    <input type="hidden" name="_method" value="PATCH">
+  <label for="title"><strong><h5>Title:</h5></strong></label>
+  <input id="title" name="title" style="font-size: 15px;font-family: arial;" value="{{title}}">
+    <span class="help-block"><em>Title should be alphanumeric i.e. it can only consist of alphabets, numerals and underscore. Title should be unique.</em></span>
+  <label for="lang"><strong><h5>Select Language:</h5></strong></label>
+    <select name="lang" id="lang">
+      <option value="-1">Select language...</option>
+      {% for lang in languages.keys() %}
+        <option value="{{languages[lang]}}"
+        {% if languages[lang]==language %}
+        selected
+        {% endif %}>{{lang.capitalize()}}</option>
+      {% endfor %}
+    </select>
+    <label for="code"><strong><h5>Code:</h5></strong></label>
+    <a href="/users/{{username}}/{{title}}/download/" download>Download</a>
+    <br><textarea cols="60" rows="25" name="code" id="code" style="width: 80%; height: 60%; display: inline; background: black; color:white;border-color: black; font-size: 15px;font-family: consolas;" wrap="off">{{code}}</textarea>
+    <br><input type="file" name="code1" id="code1">
+    <label for="testcase"><strong><h5>Input:</h5></strong></label>
+    <textarea cols="30" rows="7" name="testcase" id="testcase" style="width: 40%; height: 30%; display: inline; background: black; color:white;border-color: black;font-size: 15px;font-family: consolas;" wrap="off">{{input}}</textarea>
+    <br><button type="submit" class="btn btn-primary">Compile and Run</button><br>
+    <label for="output"><strong><h5>Output:</h5></strong></label>
+      <h5><strong>Status: </strong>{{result}}
+      {% if flag %}
+        <strong style="padding-left: 4em;">  Time: </strong>{{time}} sec
+        <strong style="padding-left: 5em">  Memory: </strong>{{mem}} bytes
+      {% endif %}
+      </h5>
+      <textarea cols="30" rows="7" name="output" id="output" style="width: 40%; height: 30%; display: inline; background: black; color:white;border-color: black;font-size: 15px;font-family: consolas" wrap="off">{{output}}</textarea>
+  </form>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>

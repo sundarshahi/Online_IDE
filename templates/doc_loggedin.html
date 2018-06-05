@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset ="utf-8">
+  <title>API Documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href={{url_for("static",filename="css/bootstrap.min.css")}} rel="stylesheet">
+  <link href="{{url_for('static',filename='css/bootstrap-responsive.css')}}" rel="stylesheet">
+  <link href={{url_for("static",filename="img6.jpg")}} rel="shortcut icon">
+</head>
+<body>
+	<header>
+    <nav>
+      <div class="navbar navbar-inverse navbar-static-top">
+        <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">
+            <img src="{{url_for('static',filename='img6.jpg')}}"> Online IDE</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav pull-right">
+                <li class="divider-vertical"></li>
+                <li><a href="/users/{{username}}">Dashboard</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="/users/{{username}}/onlineide">New Code</a></li>
+                <li class="divider-vertical"></li>
+                <li><a href="/logout">LOGOUT</a></li>
+                <li class="divider-vertical"></li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="hero-unit">
+    <h3><strong><u>Developers API</u></strong></h3>
+    <p>This is OnlineIDE developers API documentation page. Here you can find all the information you need to get started with our API.
+    </p>
+    <div style="margin-left: 30px">
+      1. <a href="/api/docs/#1">Your Unique Developer API Key</a><br/>
+      2. <a href="/api/docs/#2">GET request</a><br/>
+      3. <a href="/api/docs/#3">GET request Example</a><br/>
+      4. <a href="/api/docs/#4">POST request</a><br/>
+      5. <a href="/api/docs/#5">POST request Example</a><br/>
+      6. <a href="/api/docs/#6">PATCH request</a><br/>
+      7. <a href="/api/docs/#7">PATCH request Example</a><br/>
+      8. <a href="/api/docs/#8">DELETE request</a><br/>
+      9. <a href="/api/docs/#9">DELETE request Example</a><br/>
+    </div>
+
+    <br>
+    <a name="1"></a>
+  	<h3><strong><u>Your Unique Developer API Key</u></strong></h3>
+    <p>Everybody using our API is required to use a valid Developer API Key. You automatically get a key when you become a member of OnlineIDE.
+      <br>
+      Your Developer API key: {{key}}
+    </p>
+
+    <br>
+    <a name="2"></a>
+    <h3><strong><u>GET request:</u></strong></h3>
+    <p>With this API, you can obtain a user's all submitted codes in json format. You just need to send a valid GET request to the following URL.
+    <pre style="font-size: 15px;">"http://www.mohit-onlineide.herokuapp.com/api"</pre>
+    Include all the following <strong>GET</strong> parameters when you request the URL:<br/>
+      <ol>
+        <li><strong>key</strong> -this is your API Developer Key</li>
+      </ol>
+    For obtaining a particular code, include following optional parameter:<br/>
+      <ol>
+        <li><strong>title</strong> -title of the code you want</li>
+      </ol>
+    </p>
+
+    <br>
+    <a name="3"></a>
+    <h3><strong><u>GET request Example:</u></strong></h3>
+    <p>Following code is in Python3:</p>
+    <pre pre-scrollable style="font-size: 15px;">
+import requests
+url="http://www.mohit-onlineide.herokuapp.com/api"
+params={
+    "key":"Your_Developer_API_Key",
+    "title":"title_of_submitted_code"(optional)
+}
+r=requests.get(url,params=params)
+print(r.content)
+    </pre>
+
+  <br>
+  <a name="4"></a>
+  <h3><strong><u>POST request:</u></strong></h3>
+  <p>Creating a new code via our API is very easy. You simply have to send a valid POST request to the URL shown below. Please make sure you are sending the data as the UTF-8 charset!
+  <pre style="font-size: 15px;">"http://www.mohit-onlineide.herokuapp.com/api"</pre>
+  Include all the following <strong>POST</strong> parameters when you request the URL:<br/>
+  <ol>
+    <li><strong>key</strong>- this is your API Developer Key</li>
+    <li><strong>title</strong>- Title of new code</li>
+    <li><strong>code</strong>- Code to compile and run</li>
+    <li><strong>lang</strong>- Language code</li>
+    <li><strong>input</strong>- Testcase</li>
+  </ol>
+  Click <a href="/api/lang_codes" target="_blank">here</a> for language codes of different languages.<br>
+  </p>
+  <a name="10"></a>
+  <div class="alert">
+    <p>Few points to remember while sending a request:
+      <ul>
+        <li>Your title must be unique i.e. there should be no other submission of same title with your key or userid.</li>
+        <li>Title can only contain alphabets, underscore and integer. No special symbol is allowed.</li>
+        <li>Language Code is an integer.</li>
+      </ul>
+    </p>
+  </div>
+
+  <br>
+  <a name="5"></a>
+  <h3><strong><u>POST request Example:</u></strong></h3>
+  <p>Following code is in Python3:
+    <pre pre-scrollable style="font-size: 15px;">
+import requests
+url="http://www.mohit-onlineide.herokuapp.com/api"
+data={
+    "key":"Your_Developer_API_Key",
+    "title":"Hello_world",
+    "code":"print("Hello world")",
+    "lang":5,
+    "input":" "
+    ""
+}
+r=requests.post(url,data=data)
+print(r.content)
+    </pre>
+    Click <a href="/api/lang_codes" target="_blank">here</a> for language codes of different languages.<br>
+  </p>
+
+  <br>
+  <a name="6"></a>
+  <h3><strong><u>PATCH request:</u></strong></h3>
+  <p>With this API you can update your submitted code. You will need to send a valid PATCH request to the URL below to update the data:
+    <pre style="font-size: 15px;">"http://www.mohit-onlineide.herokuapp.com/api"</pre>
+    Include all the following <strong>PATCH</strong> parameters when you request the URL:<br/>
+    <ol>
+      <li><strong>key</strong>- this is your API Developer Key</li>
+      <li><strong>title1</strong>- Title of existing code i.e. code to be updated.</li>
+      <li><strong>title</strong>- Title of new code</li>
+      <li><strong>code</strong>- Code to compile and run</li>
+      <li><strong>lang</strong>- Language code</li>
+      <li><strong>input</strong>- Testcase</li>
+    </ol>
+    Click <a href="/api/lang_codes" target="_blank">here</a> for language codes of different languages.<br>
+    Please read <a href="/api/docs/#10">here</a>, all the points to remember while sending a PATCH request.
+  </p>
+
+  <br>
+  <a name="7"></a>
+  <h3><strong><u>PATCH request Example:</u></strong></h3>
+  <p>Following code is in Python3:
+    <pre pre-scrollable style="font-size: 15px;">
+import requests
+url="http://www.mohit-onlineide.herokuapp.com/api"
+data={
+    "key":"Your_Developer_API_Key",
+    "title1":"Hello_world",
+    "title":"Hello_earth",
+    "code":"print("Hello earth")",
+    "lang":5,
+    "input":" "
+    ""
+}
+r=requests.patch(url,data=data)
+print(r.content)
+    </pre>
+    Click <a href="/api/lang_codes" target="_blank">here</a> for language codes of different languages.<br>
+  </p>
+
+  <br>
+  <a name="8"></a>
+  <h3><strong><u>DELETE request:</u></strong></h3>
+  <p>With this API you can delete your submitted code. You will need to send a valid DELETE request to the URL below to delete the data:
+    <pre style="font-size: 15px;">"http://www.mohit-onlineide.herokuapp.com/api"</pre>
+    Include all the following <strong>DELETE</strong> parameters when you request the URL:<br/>
+    <ol>
+      <li><strong>key</strong>- this is your API Developer Key</li>
+      <li><strong>title</strong>- Title of existing code i.e. code to be deleted.</li>
+    </ol>
+  </p>
+
+  <br>
+  <a name="9"></a>
+  <h3><strong><u>DELETE request Example:</u></strong></h3>
+  <p>Following code is in Python3:
+    <pre pre-scrollable style="font-size: 15px;">
+import requests
+url="http://www.mohit-onlineide.herokuapp.com/api"
+data={
+    "key":"Your_Developer_API_Key",
+    "title":"Hello_earth",
+    ""
+}
+r=requests.delete(url,data=data)
+print(r.content)
+    </pre>
+  </p>
+  </div>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
