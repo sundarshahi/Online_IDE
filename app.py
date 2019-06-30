@@ -6,11 +6,11 @@ import requests
 from os import urandom, remove
 from binascii import hexlify
 
+MONGODB_URI = "mongodb://<dbuser>:<dbpassword>@ds123844.mlab.com:23844/heroku_jftkxr37"
 client = MongoClient(MONGODB_URI)
-db = client.get_database(db_name)
+db = client.get_database("heroku_jftkxr37")
 users = db.User
-ide=db.Codes
-homecodes= db.home
+ide = db.Codes
 
 languages = {"ada": 53,"bash": 14, "brainfuck": 19, "c": 1,"clojure": 13,"cobol": 36, "coffeescript": 59, "cpp": 2, "cpp14": 58,
              "csharp": 9,"db2": 44,"elixir": 52, "erlang": 16, "fortran": 54,"fsharp": 33, "go": 21, "groovy": 31,
