@@ -6,7 +6,7 @@ import requests
 from os import urandom, remove
 from binascii import hexlify
 
-MONGODB_URI = "mongodb://user:27017/online_ide"
+MONGODB_URI = "mongodb://<dbuser>:<dbpassword>@ds123844.mlab.com:23844/heroku_jftkxr37"
 client = MongoClient(MONGODB_URI)
 db = client.get_database("online_ide")
 users = db.User
