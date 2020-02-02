@@ -402,4 +402,5 @@ def hackerrank_api(username=None, title=None, code=None, language=None, input_=N
     return O_IDE
 
 if __name__ == "__main__":
-    app.run(port=8000, debug=True, use_reloader=True)
+    port = int(os.environ.get("PORT", 5000)) 
+    app.run(port=5000, debug=True, use_reloader=True)
