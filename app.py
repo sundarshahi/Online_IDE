@@ -6,7 +6,7 @@ import requests
 from os import urandom, remove
 from binascii import hexlify
 
-MONGODB_URI = "mongodb://<dbuser>:<dbpassword>@ds123844.mlab.com:23844/heroku_jftkxr37"
+MONGODB_URI = "mongodb://admin:admin123@ds123844.mlab.com:23844/heroku_jftkxr37"
 client = MongoClient(MONGODB_URI)
 db = client.get_database("heroku_jftkxr37")
 users = db.User
@@ -383,7 +383,7 @@ def hackerrank_api(username=None, title=None, code=None, language=None, input_=N
     except Exception as e:
         print(e)
         result ="Unable to process your request. Please try again later. Sorry for inconvenience."
-        output = None
+        #output = Noneprint('hello')
         time = None
         mem = None
     O_IDE = {}
@@ -402,5 +402,5 @@ def hackerrank_api(username=None, title=None, code=None, language=None, input_=N
     return O_IDE
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000)) 
+    #port = int(os.environ.get("PORT", 5000)) 
     app.run(port=5000, debug=True, use_reloader=True)
